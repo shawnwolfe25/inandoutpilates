@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Classes &amp; Schedule — IN &amp; OUT PILATES</title>
+<meta name="description" content="See class types and the weekly schedule at IN & OUT PILATES in Springfield, IL. Sign up for machine group, MBB group, private, and duet sessions — in studio or online via Zoom.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" href="img/logo-full.png">
+<link rel="apple-touch-icon" href="img/logo-full.png">
+<link rel="stylesheet" href="css/style.css">
+<link rel="canonical" href="https://inandoutpilates.com/classes">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="IN & OUT PILATES">
+<meta property="og:title" content="Classes &amp; Schedule — IN &amp; OUT PILATES">
+<meta property="og:description" content="Class types and weekly schedule in Springfield, IL — machine group, MBB group, private, and duet sessions, in studio or online via Zoom.">
+<meta property="og:image" content="https://inandoutpilates.com/img/hero-cadillac.jpg">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="container nav">
+    <a href="index.html" class="brand"><img src="img/logo-nav.png" alt="IN & OUT PILATES logo" class="brand-logo"><span class="brand-text">IN &amp; OUT<br>PILATES</span></a>
+    <button class="nav-toggle" aria-label="Open menu" aria-controls="navLinks" aria-expanded="false"><span></span><span></span><span></span></button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="classes.html" class="active">Classes &amp; Schedule</a></li>
+      <li><a href="pricing.html">Pricing</a></li>
+      <li><a href="registration.html">Registration</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="reviews.html">Reviews</a></li>
+      <li class="nav-cta"><a href="contact.html" class="btn btn--primary">Contact</a></li>
+    </ul>
+  </div>
+</header>
+
+<section class="page-banner" id="main" tabindex="-1">
+  <div class="container">
+    <span class="eyebrow">Find your class</span>
+    <h1>Classes &amp; Schedule</h1>
+    <p>In-studio and online options for every level. Reserve your spot below, or text Euna directly — no Google account needed.</p>
+  </div>
+</section>
+
+<!-- CLASS TYPES -->
+<section class="section">
+  <div class="container">
+    <div class="text-center" style="margin-bottom:44px">
+      <span class="eyebrow">What we offer</span>
+      <h2 class="section-title">Class types</h2>
+    </div>
+    <div class="grid grid-2">
+      <div class="card">
+        <span class="pill pill--coral">Private &amp; Duet</span>
+        <h3 style="margin-top:14px">1:1 Machine &amp; Duet Sessions</h3>
+        <p>Personalized sessions on our reformers and Cadillac. Train solo or with a partner — fully customized to your goals. Available online via Zoom if you have your own machine.</p>
+        <button type="button" class="btn btn--teal mt-2" data-signup="Private / Duet Session">Request a Spot</button>
+      </div>
+      <div class="card">
+        <span class="pill pill--teal">Group</span>
+        <h3 style="margin-top:14px">Machine Group Classes</h3>
+        <p>Energizing small-group reformer classes that build full-body strength, flexibility, and control in a supportive setting.</p>
+        <button type="button" class="btn btn--teal mt-2" data-signup="Machine Group Class">Request a Spot</button>
+      </div>
+      <div class="card">
+        <span class="pill pill--sun">MBB</span>
+        <h3 style="margin-top:14px">MBB — Mat · Ball · Bar Group</h3>
+        <p>A dynamic mat-based class using the ball and bar. Great for all levels and available online via Zoom from anywhere.</p>
+        <button type="button" class="btn btn--teal mt-2" data-signup="MBB (Mat·Ball·Bar) Group">Request a Spot</button>
+      </div>
+      <div class="card">
+        <span class="pill pill--coral">Online</span>
+        <h3 style="margin-top:14px">Join Online via Zoom</h3>
+        <p>MBB group classes and 1:1 / machine sessions (if you have machines) can be joined live online. Check the weekly schedule and confirm with Euna.</p>
+        <a href="https://us06web.zoom.us/j/2300877503" target="_blank" rel="noopener" class="btn btn--primary mt-2">Join Zoom Class</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SCHEDULE -->
+<section class="section bg-cloud">
+  <div class="container">
+    <div class="text-center" style="margin-bottom:36px">
+      <span class="eyebrow">Weekly schedule</span>
+      <h2 class="section-title">Group class schedule</h2>
+      <p class="lead">The group schedule can change week to week. Please check the weekly schedule and confirm with Euna before attending.</p>
+    </div>
+
+    <!-- Weekly schedule — shown live from the admin page (admin.html).
+         The rows below are a fallback that appears instantly and gets
+         replaced by the latest saved schedule. -->
+    <div class="table-wrap">
+      <table class="schedule">
+        <thead>
+          <tr><th>Day</th><th>Time</th><th>Class</th></tr>
+        </thead>
+        <tbody id="scheduleBody">
+          <tr><td>Monday</td><td>Morning</td><td>MBB Group</td></tr>
+          <tr><td>Monday</td><td>Midday</td><td>Machine Group</td></tr>
+          <tr><td>Wednesday</td><td>Morning</td><td>MBB Group</td></tr>
+          <tr><td>Friday</td><td>Morning</td><td>MBB Group</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p id="scheduleNote" style="text-align:center;color:var(--slate);margin-top:14px;font-size:.92rem">Euna updates this schedule each week. Please confirm your spot before attending.</p>
+
+    <div class="center-btns">
+      <a href="#one-to-one" class="btn btn--primary btn--lg">See 1:1 Availability</a>
+    </div>
+  </div>
+</section>
+
+<!-- 1:1 AVAILABILITY (maintained by Euna in admin.html) -->
+<section class="section" id="one-to-one">
+  <div class="container text-center">
+    <span class="eyebrow">Private sessions</span>
+    <h2 class="section-title">1:1 &amp; duet availability</h2>
+    <p id="oneToOneText" class="lead" style="white-space:pre-line;margin:0 auto 14px">Private 1:1 and duet sessions are by appointment. Text Euna at (618) 409-4966 to arrange a time that works for you.</p>
+    <ul id="oneToOneList" class="one-list" style="display:none;text-align:left;max-width:420px;margin-left:auto;margin-right:auto"></ul>
+    <button type="button" class="btn btn--teal" data-signup="Private / Duet Session">Request a 1:1 Spot</button>
+    <img src="img/studio-logo-wall.jpg" alt="Clients stretching at the barre beneath the IN & OUT PILATES logo" loading="lazy" decoding="async" class="banner-image">
+  </div>
+</section>
+
+<!-- HOW TO BOOK -->
+<section class="section">
+  <div class="container">
+    <div class="grid grid-2">
+      <div class="notice notice--teal">
+        <h4>Prefer email? Reach out to Euna</h4>
+        <p>Email <strong>inandoutpilates@gmail.com</strong> with your <strong>name</strong>, the <strong>class name</strong>, and the <strong>time</strong> you'd like to attend. We'll confirm your spot.</p>
+        <a href="mailto:inandoutpilates@gmail.com?subject=Class%20Booking%20Request&amp;body=Name%3A%0AClass%3A%0APreferred%20time%3A" class="btn btn--teal mt-2">Email Euna to Book</a>
+      </div>
+      <div class="notice notice--coral">
+        <h4>Last-minute cancellation policy</h4>
+        <p>Please give as much notice as possible if you need to cancel or reschedule, so we can offer your spot to someone else. Late cancellations may be charged. Questions? Just reach out.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div class="footer-brand">
+      <div class="brand"><img src="img/logo-nav.png" alt="IN & OUT PILATES logo" class="brand-logo"><span class="brand-text">IN &amp; OUT PILATES</span></div>
+      <p>Springfield's friendliest Pilates studio. Appointment required — we can't wait to welcome you.</p>
+    </div>
+    <div>
+      <h4>Explore</h4>
+      <ul class="footer-links">
+        <li><a href="classes.html">Classes &amp; Schedule</a></li>
+        <li><a href="pricing.html">Pricing</a></li>
+        <li><a href="registration.html">Registration</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="reviews.html">Reviews</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Visit &amp; Hours</h4>
+      <ul class="footer-links">
+        <li>2959 Lindbergh Blvd.<br>Springfield, IL 62704</li>
+        <li><a href="tel:+16184094966">(618) 409-4966</a></li>
+        <li>Mon–Fri: 6 AM – 7 PM</li>
+        <li>Sat: 6 AM – 2 PM</li>
+      </ul>
+    </div>
+  </div>
+  <div class="container"><div class="footer-bottom">© <span id="yr"></span> IN &amp; OUT PILATES. Appointment required. All sessions by reservation. · <a href="privacy.html">Privacy</a></div></div>
+</footer>
+<!-- Request a Spot modal -->
+<div class="modal-overlay" id="signupModal" role="dialog" aria-modal="true" aria-labelledby="signupTitle">
+  <div class="modal">
+    <button type="button" class="modal-close" id="signupClose" aria-label="Close">&times;</button>
+    <h3 id="signupTitle">Request a Spot</h3>
+    <p style="color:var(--slate);margin-bottom:18px">Tell us when you'd like to come and we'll confirm your spot.</p>
+    <form id="signupForm">
+      <input type="hidden" id="su_class">
+      <div class="hp" aria-hidden="true"><label>Company<input type="text" id="su_company" tabindex="-1" autocomplete="off"></label></div>
+      <div class="field">
+        <label for="su_name">Your name *</label>
+        <input type="text" id="su_name" required maxlength="120" placeholder="Jane Doe">
+      </div>
+      <div class="field">
+        <label for="su_phone">Phone *</label>
+        <input type="tel" id="su_phone" required placeholder="(555) 555-5555">
+      </div>
+      <div class="field">
+        <label for="su_email">Email (optional)</label>
+        <input type="email" id="su_email" placeholder="you@email.com">
+      </div>
+      <div class="field">
+        <label for="su_day">Preferred day</label>
+        <select id="su_day">
+          <option>No preference</option><option>Monday</option><option>Tuesday</option>
+          <option>Wednesday</option><option>Thursday</option><option>Friday</option><option>Saturday</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="su_time">Preferred time</label>
+        <input type="text" id="su_time" placeholder="e.g. mornings, or 5:30 PM">
+      </div>
+      <div class="checkbox-row">
+        <input type="checkbox" id="su_online">
+        <label for="su_online">I'd like to join online via Zoom</label>
+      </div>
+      <div class="field">
+        <label for="su_notes">Anything else? (optional)</label>
+        <textarea id="su_notes" maxlength="2000" placeholder="Questions or notes…"></textarea>
+      </div>
+      <div class="ts-holder mt-2" data-cf></div>
+      <button type="submit" class="btn btn--primary btn--lg" style="width:100%">Send Request</button>
+    </form>
+    <div id="signupStatus" class="form-status"></div>
+  </div>
+</div>
+
+<script>document.getElementById('yr').textContent=new Date().getFullYear();</script>
+<script src="js/main.js"></script>
+
+<!-- Live schedule, 1:1 availability, and sign-up requests (all via Supabase) -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.108.2/dist/umd/supabase.js" integrity="sha256-wSP36HSTR3i32J/ufc6N4myFiiw6kv16P4cDlKai+R8=" crossorigin="anonymous"></script>
+<script src="js/site-config.js"></script>
+<script src="js/db.js"></script>
+<script src="js/turnstile.js"></script>
+<script src="js/schedule.js"></script>
+<script>
+  // Weekly schedule
+  (function () {
+    var body = document.getElementById('scheduleBody');
+    var note = document.getElementById('scheduleNote');
+    if (body && window.Schedule) {
+      window.Schedule.load().then(function (s) { window.Schedule.render(s, body, note); });
+    }
+  })();
+
+  // 1:1 availability (intro + list of openings, maintained in admin.html)
+  if (window.DB && window.DB.configured()) {
+    window.DB.getSetting('oneToOne', null).then(function (v) {
+      if (!v) return;
+      var intro = (v.intro != null) ? v.intro : (v.text != null ? v.text : '');
+      var el = document.getElementById('oneToOneText');
+      if (el && intro) el.textContent = intro;
+      var list = document.getElementById('oneToOneList');
+      if (list) {
+        var slots = (v.slots || []).filter(function (s) { return s && String(s).trim(); });
+        list.innerHTML = slots.map(function (s) {
+          return '<li>' + String(s).replace(/[&<>"]/g, function (c) {
+            return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c];
+          }) + '</li>';
+        }).join('');
+        list.style.display = slots.length ? '' : 'none';
+      }
+    });
+  }
+
+  // "Request a Spot" modal
+  (function () {
+    var overlay = document.getElementById('signupModal');
+    var form = document.getElementById('signupForm');
+    var status = document.getElementById('signupStatus');
+    var title = document.getElementById('signupTitle');
+    var classField = document.getElementById('su_class');
+    var gate = window.Turnstile.attach(form.querySelector('[data-cf]'));
+    var val = function (id) { return document.getElementById(id).value.trim(); };
+
+    function openModal(cls) {
+      classField.value = cls;
+      title.textContent = 'Request a Spot — ' + cls;
+      form.style.display = '';
+      status.textContent = ''; status.className = 'form-status';
+      var b = form.querySelector('button[type="submit"]'); if (b) b.disabled = false;
+      overlay.classList.add('open');
+      document.getElementById('su_name').focus();
+    }
+    function closeModal() { overlay.classList.remove('open'); }
+
+    document.querySelectorAll('[data-signup]').forEach(function (b) {
+      b.addEventListener('click', function () { openModal(b.getAttribute('data-signup')); });
+    });
+    document.getElementById('signupClose').addEventListener('click', closeModal);
+    overlay.addEventListener('click', function (e) { if (e.target === overlay) closeModal(); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeModal(); });
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      status.className = 'form-status';
+      // Honeypot: hidden field filled => bot. Pretend success, save nothing.
+      if (document.getElementById('su_company').value) {
+        form.style.display = 'none'; status.className = 'form-status ok';
+        status.textContent = '✓ Request sent! Euna will confirm your spot soon.'; return;
+      }
+      // Anti-bot check (only if Turnstile is turned on)
+      if (!gate.ok()) {
+        status.classList.add('err');
+        status.textContent = 'Please complete the “I’m human” check, then send again.';
+        return;
+      }
+      if (!window.DB || !window.DB.configured()) {
+        status.classList.add('err');
+        status.textContent = 'Online sign-up isn’t connected yet. Please text Euna at (618) 409-4966.';
+        return;
+      }
+      status.textContent = 'Sending…';
+      var b = form.querySelector('button[type="submit"]'); b.disabled = true;
+      window.DB.insert('signups', {
+        class_type: classField.value,
+        name: val('su_name'),
+        phone: val('su_phone'),
+        email: val('su_email'),
+        preferred_day: document.getElementById('su_day').value,
+        preferred_time: val('su_time'),
+        online: document.getElementById('su_online').checked,
+        notes: val('su_notes'),
+        status: 'new'
+      }).then(function () {
+        form.style.display = 'none';
+        status.className = 'form-status ok';
+        status.textContent = '✓ Request sent! Euna will confirm your spot soon.';
+      }).catch(function () {
+        status.className = 'form-status err';
+        status.textContent = 'Sorry, something went wrong. Please text Euna at (618) 409-4966.';
+        b.disabled = false;
+        gate.reset();
+      });
+    });
+  })();
+</script>
+</body>
+</html>

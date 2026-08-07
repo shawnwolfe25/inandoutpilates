@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Registration — IN &amp; OUT PILATES</title>
+<meta name="description" content="New to IN & OUT PILATES? Complete two quick forms — the registration form and the general liability form — to get started in Springfield, IL.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" href="img/logo-full.png">
+<link rel="apple-touch-icon" href="img/logo-full.png">
+<link rel="stylesheet" href="css/style.css">
+<link rel="canonical" href="https://inandoutpilates.com/registration">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="IN & OUT PILATES">
+<meta property="og:title" content="Registration — IN &amp; OUT PILATES">
+<meta property="og:description" content="New to IN & OUT PILATES? Complete two quick forms — registration and the general liability waiver — to get started in Springfield, IL.">
+<meta property="og:image" content="https://inandoutpilates.com/img/hero-cadillac.jpg">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="container nav">
+    <a href="index.html" class="brand"><img src="img/logo-nav.png" alt="IN & OUT PILATES logo" class="brand-logo"><span class="brand-text">IN &amp; OUT<br>PILATES</span></a>
+    <button class="nav-toggle" aria-label="Open menu" aria-controls="navLinks" aria-expanded="false"><span></span><span></span><span></span></button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="classes.html">Classes &amp; Schedule</a></li>
+      <li><a href="pricing.html">Pricing</a></li>
+      <li><a href="registration.html" class="active">Registration</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="reviews.html">Reviews</a></li>
+      <li class="nav-cta"><a href="contact.html" class="btn btn--primary">Contact</a></li>
+    </ul>
+  </div>
+</header>
+
+<section class="page-banner" id="main" tabindex="-1">
+  <div class="container">
+    <span class="eyebrow">Welcome — you are special</span>
+    <h1>Registration</h1>
+    <p>Getting started is easy. Just complete the two short forms below and you're ready for your first session.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container" style="max-width:820px">
+    <p style="color:var(--slate);font-size:.92rem;margin-bottom:22px">Your details are used only to set up and manage your sessions — never sold or shared. See our <a href="privacy.html">privacy page</a>.</p>
+    <div class="steps">
+      <!-- STEP 1: REGISTRATION FORM -->
+      <div class="step">
+        <div class="num">1</div>
+        <div>
+          <h3>Fill out the registration form</h3>
+          <p>Tell us a little about yourself and your goals so we can prepare for your visit.</p>
+          <form id="registrationForm" class="mt-2">
+            <div class="hp" aria-hidden="true"><label>Company<input type="text" name="company" tabindex="-1" autocomplete="off"></label></div>
+            <div class="field">
+              <label for="reg_name">Full name *</label>
+              <input type="text" id="reg_name" name="name" required maxlength="120" placeholder="Jane Doe">
+            </div>
+            <div class="field">
+              <label for="reg_email">Email *</label>
+              <input type="email" id="reg_email" name="email" required placeholder="you@email.com">
+            </div>
+            <div class="field">
+              <label for="reg_phone">Phone *</label>
+              <input type="tel" id="reg_phone" name="phone" required placeholder="(555) 555-5555">
+            </div>
+            <div class="field">
+              <label for="reg_experience">Pilates experience</label>
+              <select id="reg_experience" name="experience">
+                <option>New to Pilates</option>
+                <option>Some experience</option>
+                <option>Experienced</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="reg_goals">Your goals (optional)</label>
+              <textarea id="reg_goals" name="goals" maxlength="2000" placeholder="What would you like to work on?"></textarea>
+            </div>
+            <div class="field">
+              <label for="reg_heard">How did you hear about us? (optional)</label>
+              <input type="text" id="reg_heard" name="heard_about" placeholder="Friend, Google, Instagram…">
+            </div>
+            <div class="ts-holder mt-2" data-cf></div>
+            <button type="submit" class="btn btn--primary">Submit Registration</button>
+          </form>
+          <div id="regStatus" class="form-status"></div>
+        </div>
+      </div>
+
+      <!-- STEP 2: LIABILITY WAIVER FORM -->
+      <div class="step">
+        <div class="num">2</div>
+        <div>
+          <h3>Complete the general liability form</h3>
+          <p>A standard waiver that keeps everyone safe and ready to move. Please read and sign below.</p>
+          <form id="waiverForm" class="mt-2">
+            <div class="hp" aria-hidden="true"><label>Company<input type="text" name="company" tabindex="-1" autocomplete="off"></label></div>
+            <div class="waiver-box">
+              <p><strong>Release of Liability &amp; Assumption of Risk</strong></p>
+              <p>In consideration of being allowed to participate in Pilates classes, sessions, and activities at IN &amp; OUT PILATES, I acknowledge and agree that:</p>
+              <p>• Physical activity carries inherent risks of injury, and I am voluntarily participating with knowledge of those risks.</p>
+              <p>• I confirm I am physically able to participate and have consulted a physician about any condition that could affect my participation.</p>
+              <p>• I will inform my instructor of any injuries, conditions, or limitations before each session, and I will stop and seek medical attention if I experience pain, dizziness, or discomfort.</p>
+              <p>• To the fullest extent permitted by law, I release and hold harmless IN &amp; OUT PILATES, its owner, and its instructors from any claims, liabilities, or damages arising from my participation.</p>
+            </div>
+            <div class="field">
+              <label for="wv_name">Participant full name *</label>
+              <input type="text" id="wv_name" name="name" required placeholder="Jane Doe">
+            </div>
+            <div class="field">
+              <label for="wv_dob">Date of birth (optional)</label>
+              <input type="date" id="wv_dob" name="dob">
+            </div>
+            <div class="field">
+              <label for="wv_em_name">Emergency contact name *</label>
+              <input type="text" id="wv_em_name" name="emergency_name" required placeholder="Contact name">
+            </div>
+            <div class="field">
+              <label for="wv_em_phone">Emergency contact phone *</label>
+              <input type="tel" id="wv_em_phone" name="emergency_phone" required placeholder="(555) 555-5555">
+            </div>
+            <div class="checkbox-row">
+              <input type="checkbox" id="wv_agree" name="agree" required>
+              <label for="wv_agree">I have read and agree to the release of liability and assumption of risk above. *</label>
+            </div>
+            <div class="field">
+              <label for="wv_sign">Type your full name to sign *</label>
+              <input type="text" id="wv_sign" name="signature" required placeholder="Your full legal name">
+            </div>
+            <div class="ts-holder mt-2" data-cf></div>
+            <button type="submit" class="btn btn--teal">Sign &amp; Submit Waiver</button>
+          </form>
+          <div id="waiverStatus" class="form-status"></div>
+        </div>
+      </div>
+
+      <!-- STEP 3: RESERVE -->
+      <div class="step">
+        <div class="num">3</div>
+        <div>
+          <h3>Reserve your first class</h3>
+          <p>Browse the schedule and request a spot, or simply text Euna at (618) 409-4966 with your name, class, and preferred time.</p>
+          <a href="classes.html" class="btn btn--ghost mt-2">View Schedule</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="notice notice--teal mt-4 text-center">
+      <h4>We can't wait to meet you!</h4>
+      <p>Once your forms are in, we'll be in touch to confirm your first session. Welcome to the IN &amp; OUT PILATES family.</p>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div class="footer-brand">
+      <div class="brand"><img src="img/logo-nav.png" alt="IN & OUT PILATES logo" class="brand-logo"><span class="brand-text">IN &amp; OUT PILATES</span></div>
+      <p>Springfield's friendliest Pilates studio. Appointment required — we can't wait to welcome you.</p>
+    </div>
+    <div>
+      <h4>Explore</h4>
+      <ul class="footer-links">
+        <li><a href="classes.html">Classes &amp; Schedule</a></li>
+        <li><a href="pricing.html">Pricing</a></li>
+        <li><a href="registration.html">Registration</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="reviews.html">Reviews</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Visit &amp; Hours</h4>
+      <ul class="footer-links">
+        <li>2959 Lindbergh Blvd.<br>Springfield, IL 62704</li>
+        <li><a href="tel:+16184094966">(618) 409-4966</a></li>
+        <li>Mon–Fri: 6 AM – 7 PM</li>
+        <li>Sat: 6 AM – 2 PM</li>
+      </ul>
+    </div>
+  </div>
+  <div class="container"><div class="footer-bottom">© <span id="yr"></span> IN &amp; OUT PILATES. Appointment required. All sessions by reservation. · <a href="privacy.html">Privacy</a></div></div>
+</footer>
+<script>document.getElementById('yr').textContent=new Date().getFullYear();</script>
+<script src="js/main.js"></script>
+
+<!-- Registration & waiver forms save to Supabase (viewable in admin.html) -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.108.2/dist/umd/supabase.js" integrity="sha256-wSP36HSTR3i32J/ufc6N4myFiiw6kv16P4cDlKai+R8=" crossorigin="anonymous"></script>
+<script src="js/site-config.js"></script>
+<script src="js/db.js"></script>
+<script src="js/turnstile.js"></script>
+<script>
+(function () {
+  var NOT_READY = 'Online forms aren’t connected yet. Please text Euna at (618) 409-4966 to register, or try again soon.';
+
+  function handle(formId, statusId, table, build, okMsg) {
+    var form = document.getElementById(formId);
+    var status = document.getElementById(statusId);
+    if (!form) return;
+    var gate = window.Turnstile.attach(form.querySelector('[data-cf]'));
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      status.className = 'form-status';
+      // Honeypot: if the hidden field is filled, it's a bot — pretend success, save nothing.
+      if (form.elements['company'] && form.elements['company'].value) {
+        form.style.display = 'none'; status.className = 'form-status ok'; status.textContent = okMsg; return;
+      }
+      // Anti-bot check (only if Turnstile is turned on)
+      if (!gate.ok()) {
+        status.classList.add('err');
+        status.textContent = 'Please complete the “I’m human” check below, then submit again.';
+        return;
+      }
+      if (!window.DB || !window.DB.configured()) {
+        status.classList.add('err'); status.textContent = NOT_READY; return;
+      }
+      status.textContent = 'Sending…';
+      var btn = form.querySelector('button[type="submit"]');
+      btn.disabled = true;
+      window.DB.insert(table, build(form)).then(function () {
+        form.style.display = 'none';
+        status.className = 'form-status ok';
+        status.textContent = okMsg;
+      }).catch(function () {
+        status.className = 'form-status err';
+        status.textContent = 'Sorry, something went wrong. Please text Euna at (618) 409-4966.';
+        btn.disabled = false;
+        gate.reset();
+      });
+    });
+  }
+
+  handle('registrationForm', 'regStatus', 'registrations', function (f) {
+    return {
+      name: f.elements['name'].value.trim(),
+      email: f.email.value.trim(),
+      phone: f.phone.value.trim(),
+      experience: f.experience.value,
+      goals: f.goals.value.trim(),
+      heard_about: f.heard_about.value.trim()
+    };
+  }, '✓ Thank you! Your registration has been received.');
+
+  handle('waiverForm', 'waiverStatus', 'waivers', function (f) {
+    return {
+      name: f.elements['name'].value.trim(),
+      dob: f.dob.value || null,
+      emergency_name: f.emergency_name.value.trim(),
+      emergency_phone: f.emergency_phone.value.trim(),
+      signature: f.signature.value.trim(),
+      agreed: f.agree.checked
+    };
+  }, '✓ Thank you! Your signed waiver has been received.');
+})();
+</script>
+</body>
+</html>

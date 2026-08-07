@@ -1,0 +1,276 @@
+========================================================
+  ADMIN PAGE SETUP  •  one-time, ~10 minutes, free
+  (Do this ONCE. After that, Euna just signs in and edits.)
+========================================================
+
+WHAT THIS DOES
+  Adds a private page (admin.html) where Euna signs in with an
+  email + password and edits the weekly class schedule using
+  simple fill-in boxes. When she clicks Save, the public
+  Classes & Schedule page updates automatically — nothing to
+  re-upload, no code to touch.
+
+  To remember the schedule and handle her login, the site uses
+  a free service called SUPABASE (the same kind of tool your
+  family storage project uses). You connect it once below.
+
+
+--------------------------------------------------------
+STEP 1 — CREATE A FREE SUPABASE PROJECT
+--------------------------------------------------------
+  1. Go to  https://supabase.com  and sign in (or sign up free).
+  2. Click "New project".
+       - Name: inandout-pilates  (anything is fine)
+       - Database Password: make one up and save it somewhere.
+       - Pick the closest region, then "Create new project".
+  3. Wait ~2 minutes for it to finish setting up.
+
+  (You can reuse an existing Supabase account — just make a new
+   project so it stays separate from other things.)
+
+
+--------------------------------------------------------
+STEP 2 — CREATE THE SCHEDULE TABLE  (copy & paste)
+--------------------------------------------------------
+  1. In your project, click "SQL Editor" on the left sidebar.
+  2. Click "New query", paste EVERYTHING in the box below,
+     then click "Run".
+
+  ---------------- copy from here ----------------
+  create table if not exists public.settings (
+    key text primary key,
+    value jsonb not null,
+    updated_at timestamptz default now()
+  );
+
+  alter table public.settings enable row level security;
+
+  -- Anyone can READ (so the public website can show the schedule)
+  drop policy if exists "public read settings" on public.settings;
+  create policy "public read settings"
+    on public.settings for select
+    to anon, authenticated using (true);
+
+  -- Only a signed-in user can ADD or CHANGE
+  drop policy if exists "auth insert settings" on public.settings;
+  create policy "auth insert settings"
+    on public.settings for insert
+    to authenticated with check (true);
+
+  drop policy if exists "auth update settings" on public.settings;
+  create policy "auth update settings"
+    on public.settings for update
+    to authenticated using (true) with check (true);
+
+  -- Start with a basic schedule (Euna replaces this on admin.html)
+  insert into public.settings (key, value)
+  values ('schedule', '{
+    "note": "Euna updates this schedule each week. Please confirm your spot before attending.",
+    "rows": {
+      "Monday":    {"morning":"MBB Group","midday":"Machine Group","evening":"1:1 by appt."},
+      "Tuesday":   {"morning":"Machine Group","midday":"1:1 by appt.","evening":"MBB Group"},
+      "Wednesday": {"morning":"MBB Group","midday":"Machine Group","evening":"1:1 by appt."},
+      "Thursday":  {"morning":"Machine Group","midday":"1:1 by appt.","evening":"MBB Group"},
+      "Friday":    {"morning":"MBB Group","midday":"Machine Group","evening":"1:1 by appt."},
+      "Saturday":  {"morning":"Machine Group","midday":"MBB Group","evening":"—"}
+    }
+  }')
+  on conflict (key) do nothing;
+  ----------------- to here -----------------
+
+  You should see "Success. No rows returned." That's correct.
+
+
+--------------------------------------------------------
+STEP 2b — CREATE THE FORMS TABLES  (copy & paste)
+--------------------------------------------------------
+  These store the new-client registrations, signed waivers, and
+  class "spot requests" so they appear in the admin page (and
+  replace the old Google Forms / sign-up sheets).
+
+  In the SQL Editor, click "New query" again, paste EVERYTHING
+  below, then click "Run".
+
+  ---------------- copy from here ----------------
+  create extension if not exists pgcrypto;
+
+  create table if not exists public.registrations (
+    id uuid primary key default gen_random_uuid(),
+    created_at timestamptz default now(),
+    name text, email text, phone text,
+    experience text, goals text, heard_about text
+  );
+  create table if not exists public.waivers (
+    id uuid primary key default gen_random_uuid(),
+    created_at timestamptz default now(),
+    name text, dob text,
+    emergency_name text, emergency_phone text,
+    signature text, agreed boolean
+  );
+  create table if not exists public.signups (
+    id uuid primary key default gen_random_uuid(),
+    created_at timestamptz default now(),
+    class_type text, name text, phone text, email text,
+    preferred_day text, preferred_time text, online boolean,
+    notes text, status text default 'new'
+  );
+
+  alter table public.registrations enable row level security;
+  alter table public.waivers       enable row level security;
+  alter table public.signups       enable row level security;
+
+  -- The public may SUBMIT (insert) but may NOT read others' info.
+  -- Only a signed-in user (Euna) can read, update, or delete.
+  drop policy if exists "anon insert registrations" on public.registrations;
+  create policy "anon insert registrations" on public.registrations for insert to anon, authenticated with check (true);
+  drop policy if exists "auth read registrations" on public.registrations;
+  create policy "auth read registrations"   on public.registrations for select to authenticated using (true);
+  drop policy if exists "auth delete registrations" on public.registrations;
+  create policy "auth delete registrations" on public.registrations for delete to authenticated using (true);
+
+  drop policy if exists "anon insert waivers" on public.waivers;
+  create policy "anon insert waivers" on public.waivers for insert to anon, authenticated with check (true);
+  drop policy if exists "auth read waivers" on public.waivers;
+  create policy "auth read waivers"   on public.waivers for select to authenticated using (true);
+  drop policy if exists "auth delete waivers" on public.waivers;
+  create policy "auth delete waivers" on public.waivers for delete to authenticated using (true);
+
+  drop policy if exists "anon insert signups" on public.signups;
+  create policy "anon insert signups" on public.signups for insert to anon, authenticated with check (true);
+  drop policy if exists "auth read signups" on public.signups;
+  create policy "auth read signups"   on public.signups for select to authenticated using (true);
+  drop policy if exists "auth update signups" on public.signups;
+  create policy "auth update signups" on public.signups for update to authenticated using (true) with check (true);
+  drop policy if exists "auth delete signups" on public.signups;
+  create policy "auth delete signups" on public.signups for delete to authenticated using (true);
+
+  -- The 1:1 availability text shown on the Classes page.
+  insert into public.settings (key, value)
+  values ('oneToOne', '{"text":"Private 1:1 and duet sessions are by appointment. Text Euna at (618) 409-4966 to arrange a time that works for you."}')
+  on conflict (key) do nothing;
+  ----------------- to here -----------------
+
+  Again you should see "Success. No rows returned."
+
+
+--------------------------------------------------------
+STEP 3 — CREATE EUNA'S LOGIN
+--------------------------------------------------------
+  1. Click "Authentication" on the left sidebar.
+  2. Click "Add user" -> "Create new user".
+  3. Enter Euna's email and a password (write them down for her).
+  4. Turn ON "Auto Confirm User" so she can log in right away.
+  5. Click "Create user".
+
+  SECURITY: use a STRONG password (12+ characters, not reused from
+  another site). This password is the only thing protecting every
+  client's registration, waiver, and contact details.
+
+
+--------------------------------------------------------
+STEP 3b — TURN ON EXTRA PROTECTIONS (recommended, 2 min)
+--------------------------------------------------------
+  In Supabase:
+  1. Authentication -> Policies: confirm each table (settings,
+     registrations, waivers, signups) shows "RLS enabled".
+     (The Step 2 / 2b code already does this — just verify.)
+  2. Authentication -> Providers -> Email: make sure
+     "Leaked password protection" is ON if available, and keep
+     email sign-ups restricted (you create users by hand).
+  3. (Optional) Project Settings -> API: you do NOT need to expose
+     the "service_role" key anywhere — never put it on the website.
+
+  VERIFY THE RULES WORK (paste in SQL Editor, click Run):
+  ---------------- copy from here ----------------
+  set role anon;
+  select count(*) from public.registrations;  -- should ERROR (good)
+  reset role;
+  ---------------- to here -----------------
+  If that SELECT returns an error like "permission denied", the
+  public CANNOT read client info — exactly what we want. If it
+  returns a number instead, re-run the Step 2b policy code.
+
+
+--------------------------------------------------------
+STEP 4 — CONNECT THE WEBSITE (paste 2 values)
+--------------------------------------------------------
+  1. In Supabase, click the gear "Project Settings" ->
+     "API" (or "Data API").
+  2. Copy these two things:
+       - Project URL        (looks like https://abcd1234.supabase.co)
+       - anon public key    (a long string under "Project API keys")
+  3. Open  js/site-config.js  in any text editor. Near the top:
+       SUPABASE_URL:      "PASTE_SUPABASE_URL"
+       SUPABASE_ANON_KEY: "PASTE_SUPABASE_ANON_KEY"
+     Replace PASTE_SUPABASE_URL with the Project URL, and
+     PASTE_SUPABASE_ANON_KEY with the anon public key.
+     Keep the quotation marks. Save the file.
+
+  (It is safe for these two values to be public — the database
+   rules above only let a signed-in user make changes.)
+
+  4. Re-publish the site (drag the folder into Vercel again, or
+     push to GitHub if it's connected). Done!
+
+
+--------------------------------------------------------
+HOW EUNA USES IT (give her this part)
+--------------------------------------------------------
+  1. Go to:  YOUR-WEBSITE-ADDRESS/admin   (e.g. inandoutpilates.com/admin)
+  2. Sign in with the email and password Shawn gave you.
+  3. Use the tabs at the top:
+     - SCHEDULE: type the class and time in each box, e.g.
+       "MBB Group – 8:00 AM". Leave a box empty if there's no class.
+       Click "Save & Update Website".
+     - 1:1 AVAILABILITY: type your private-session availability;
+       it shows on the Classes page. Click Save.
+     - PRICING: type the dollar amounts (and labels if you want)
+       for each plan, then Save. The Pricing page updates itself.
+     - SPOT REQUESTS: people who asked for a class spot. Tap "Call"
+       or "Text" to reach them, then "Mark Confirmed". The little
+       number on the tab shows how many are still new.
+     - REGISTRATIONS / WAIVERS: new-client forms people submitted.
+       Each can be downloaded as a spreadsheet (CSV) and deleted.
+
+  Tip: bookmark the /admin page on her phone for one-tap access.
+  Tip: the count badges on the tabs tell you when something new
+  came in.
+
+
+--------------------------------------------------------
+STEP 5 — EXTRA SECURITY (recommended, all free)
+--------------------------------------------------------
+A) TURN ON 2-FACTOR LOGIN for your Supabase and Vercel accounts.
+   These two dashboards control the whole site, so protect them:
+     - Supabase: Account -> Security -> enable MFA / Authenticator.
+     - Vercel:   Account Settings -> Authentication / Two-Factor.
+   Use an authenticator app (e.g. Google Authenticator). This is
+   the single most important security step.
+
+B) ADD ANTI-SPAM TO THE FORMS (Cloudflare Turnstile, free).
+   The forms already have a hidden "honeypot" that stops basic bots.
+   For stronger protection against spam sign-ups:
+     1. Go to https://www.cloudflare.com -> sign up free ->
+        "Turnstile" -> "Add site".
+     2. Enter your website domain. Choose the "Managed" widget.
+     3. Copy the "Site Key" (this one is public/safe to share).
+     4. Open js/site-config.js and replace PASTE_TURNSTILE_SITE_KEY
+        with it. Keep the quotes. Save and re-publish.
+   Now a quick "I'm human" check appears on the forms. If you skip
+   this, the forms still work (with the honeypot only).
+
+C) NEVER put the Supabase "service_role" key on the website.
+   The website only ever uses the "anon public" key from Step 4.
+
+
+--------------------------------------------------------
+GOOD TO KNOW
+--------------------------------------------------------
+  - The /admin page is hidden: it's not in the website menu and is
+    marked so Google won't list it. Only people with the link and
+    a password can use it.
+  - If you ever see "this admin page isn't connected yet," it means
+    Step 4 wasn't saved/published. Re-check js/site-config.js.
+  - The website has security headers and pinned, verified versions
+    of its few outside libraries (set in vercel.json and the pages).
+  - Free tier is plenty for all of this — no cost.
