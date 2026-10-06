@@ -82,8 +82,9 @@ h1,h2,h3,h4{font-family:var(--font-head);line-height:1.15;color:var(--ink)}
 .price-card .amount span{font-size:1rem;font-weight:500;color:var(--slate)}
 .price-card .per{color:var(--slate);margin-bottom:18px}
 .price-list{list-style:none;text-align:left;margin:18px 0 24px}
-.price-list li{padding:8px 0;border-bottom:1px dashed var(--line);color:var(--slate);display:flex;justify-content:space-between;gap:12px}
-.price-list li strong{color:var(--ink);font-family:var(--font-head)}
+.price-list li{padding:8px 0;border-bottom:1px dashed var(--line);color:var(--slate);display:flex;justify-content:space-between;align-items:baseline;gap:12px}
+.price-list li span{min-width:0}
+.price-list li strong{color:var(--ink);font-family:var(--font-head);flex:none;white-space:nowrap;text-align:right}
 .table-wrap{overflow-x:auto;border-radius:var(--radius);border:1px solid var(--line);box-shadow:var(--shadow-sm)}
 table.schedule{width:100%;border-collapse:collapse;background:#fff;min-width:560px}
 table.schedule th,table.schedule td{padding:14px 18px;text-align:left;border-bottom:1px solid var(--line)}
@@ -180,7 +181,7 @@ a:focus-visible,.btn:focus-visible,button:focus-visible,
 .admin-cells{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
 @media(max-width:640px){.admin-cells{grid-template-columns:1fr}}
 .admin-cells label{display:block;font-family:var(--font-head);font-weight:600;
-  font-size:.82rem;color:var(--slate);text-transform:uppercase;letter-spacing:.04em}
+  font-size:.72rem;color:var(--slate);text-transform:uppercase;letter-spacing:.04em}
 .admin-cells input{width:100%;margin-top:6px;padding:12px 14px;border:1.5px solid var(--line);
   border-radius:10px;font-family:var(--font-body);font-size:1rem;color:var(--ink);background:#fff}
 .admin-cells input:focus{outline:none;border-color:var(--teal)}
@@ -206,8 +207,10 @@ a:focus-visible,.btn:focus-visible,button:focus-visible,
 .admin-row{display:grid;gap:10px;align-items:end;background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px 14px}
 .admin-row--sched{grid-template-columns:160px 1fr 1.5fr auto}
 .admin-row--slot{grid-template-columns:1fr auto;align-items:center}
-.admin-row--item{grid-template-columns:2fr 1fr auto;align-items:center}
-@media(max-width:640px){.admin-row--sched,.admin-row--item{grid-template-columns:1fr}}
+.admin-row--item{grid-template-columns:minmax(0,1fr) 140px 40px;align-items:center;border:0;border-radius:0;padding:0;background:none}
+.admin-row--item input{margin-top:0}
+.admin-row--item .row-del{padding:0;width:40px}
+@media(max-width:640px){.admin-row--sched{grid-template-columns:1fr}.admin-row--item{grid-template-columns:minmax(0,1fr) 108px 40px;gap:8px}.admin-row--item input{padding:11px 10px}}
 .admin-row .ar-field{display:block;font-family:var(--font-head);font-weight:600;font-size:.72rem;color:var(--slate);text-transform:uppercase;letter-spacing:.04em}
 .admin-row input,.admin-row select{width:100%;margin-top:4px;padding:11px 13px;border:1.5px solid var(--line);border-radius:10px;font-family:var(--font-body);font-size:1rem;color:var(--ink);background:#fff}
 .admin-row input:focus,.admin-row select:focus{outline:none;border-color:var(--teal)}
@@ -219,12 +222,22 @@ a:focus-visible,.btn:focus-visible,button:focus-visible,
 .admin-pcard{border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin-bottom:16px;background:#fff;box-shadow:var(--shadow-sm)}
 .admin-pcard.is-best{border:2px solid var(--coral);box-shadow:var(--shadow)}
 .admin-pcard-head{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:14px}
+.admin-pcard-head .row-del{height:auto;padding:9px 14px;font-size:.85rem;border-radius:999px;white-space:nowrap}
 .pcard-title{flex:1 1 200px;padding:11px 13px;border:1.5px solid var(--line);border-radius:10px;font-family:var(--font-head);font-weight:600;font-size:1.05rem;color:var(--ink)}
 .pcard-title:focus{outline:none;border-color:var(--teal)}
 .best-btn{font-family:var(--font-head);font-weight:600;font-size:.85rem;padding:9px 14px;border-radius:999px;border:1.5px solid var(--line);background:#fff;color:var(--slate);cursor:pointer;white-space:nowrap}
 .best-btn:hover{border-color:var(--coral);color:var(--coral)}
 .admin-pcard.is-best .best-btn{background:var(--coral);color:#fff;border-color:var(--coral)}
-.pitems{display:grid;gap:8px;margin:4px 0 10px}
+.pitems{display:grid;gap:8px;margin:4px 0 12px;padding-top:14px;border-top:1px solid var(--line)}
+.pitems-head{display:grid;grid-template-columns:minmax(0,1fr) 140px 40px;gap:10px;font-family:var(--font-head);font-weight:600;font-size:.72rem;color:var(--slate);text-transform:uppercase;letter-spacing:.04em}
+@media(max-width:640px){
+  .pitems-head{grid-template-columns:minmax(0,1fr) 108px 40px;gap:8px}
+  .admin-pcard{padding:16px 14px}
+  .admin-pcard-head .pcard-title{flex-basis:100%}
+  .admin-pcard-head .row-del{margin-left:auto}
+  .admin-cells{grid-template-columns:1fr 1fr;gap:10px}
+  .admin-cells label:last-child{grid-column:1/-1}
+}
 
 /* Submission cards (registrations, waivers, sign-up requests) */
 .sub-list{display:grid;gap:16px}

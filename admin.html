@@ -320,7 +320,9 @@
         '<label>Unit<input type="text" data-k="unit" placeholder="/class"></label>' +
         '<label>Subtitle<input type="text" data-k="subtitle" placeholder="Machine & MBB group"></label>' +
       '</div>' +
-      '<div class="pitems" data-items></div>' +
+      '<div class="pitems" data-items>' +
+        '<div class="pitems-head" aria-hidden="true"><span>Line item</span><span>Price</span><span></span></div>' +
+      '</div>' +
       '<button type="button" class="btn btn--ghost btn--sm" data-add-item>+ Add line item</button>';
     div.querySelector('[data-k="title"]').value = card.title || '';
     div.querySelector('[data-k="amount"]').value = card.amount || '';
