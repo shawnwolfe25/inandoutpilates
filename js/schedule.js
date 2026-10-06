@@ -59,7 +59,9 @@
       });
     }
 
-    if (!classes.length) classes = def.classes.slice();
+    // A saved list may be empty on purpose (no classes this week), so
+    // only fall back to the sample classes when nothing was saved at all.
+    if (!Array.isArray(data.classes) && !data.rows) classes = def.classes.slice();
     return { note: note, classes: classes };
   }
 
