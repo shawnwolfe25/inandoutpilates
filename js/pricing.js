@@ -16,7 +16,7 @@
      Enforces that at most ONE card is featured (first one wins). */
   function normalize(data) {
     var def = window.PRICING_DEFAULT;
-    if (!data || !Array.isArray(data.cards) || !data.cards.length) {
+    if (!data || !Array.isArray(data.cards)) {
       return { note: def.note, cards: def.cards.map(cloneCard) };
     }
     var featuredUsed = false;
@@ -38,7 +38,8 @@
       };
     }).filter(function (c) { return c.title || c.amount || c.items.length; });
 
-    if (!cards.length) return { note: def.note, cards: def.cards.map(cloneCard) };
+    // A saved list may be empty on purpose, so keep it empty rather than
+    // bringing back the placeholder plans.
     return { note: (data.note != null ? data.note : def.note), cards: cards };
   }
 
@@ -66,7 +67,8 @@
         '<div class="amount">' + esc(c.amount) + "<span>" + esc(c.unit) + "</span></div>" +
         '<p class="per">' + esc(c.subtitle) + "</p>" +
         '<ul class="price-list">' + items + "</ul>" + cta + "</div>";
-    }).join("");
+    }).join("") ||
+      '<p style="grid-column:1/-1;text-align:center">Pricing coming soon — please contact us for current rates.</p>';
     if (noteEl) noteEl.textContent = d.note || "";
   }
 
