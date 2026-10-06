@@ -264,7 +264,12 @@
       if (!v) return;
       var intro = (v.intro != null) ? v.intro : (v.text != null ? v.text : '');
       var el = document.getElementById('oneToOneText');
-      if (el && intro) el.textContent = intro;
+      // An intro cleared in the admin page should disappear, not fall
+      // back to the text built into this page.
+      if (el && (v.intro != null || v.text != null)) {
+        el.textContent = intro;
+        el.style.display = intro ? '' : 'none';
+      }
       var list = document.getElementById('oneToOneList');
       if (list) {
         var slots = (v.slots || []).filter(function (s) { return s && String(s).trim(); });

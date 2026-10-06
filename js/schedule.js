@@ -108,7 +108,7 @@
       tbodyEl.innerHTML = rows ||
         '<tr><td colspan="3" style="text-align:center">Schedule coming soon — please check back.</td></tr>';
     }
-    if (noteEl && s.note) noteEl.textContent = s.note;
+    if (noteEl) noteEl.textContent = s.note || "";
   }
 
   window.Schedule = {
