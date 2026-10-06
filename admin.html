@@ -497,6 +497,8 @@
     rows.forEach(function (row) {
       lines.push(cols.map(function (c) {
         var v = row[c] == null ? '' : String(row[c]);
+        // Stop Excel/Sheets from running submitted text as a formula
+        if (/^[=+\-@\t\r]/.test(v)) v = "'" + v;
         return /[",\n]/.test(v) ? '"' + v.replace(/"/g,'""') + '"' : v;
       }).join(','));
     });
