@@ -274,3 +274,32 @@ GOOD TO KNOW
   - The website has security headers and pinned, verified versions
     of its few outside libraries (set in vercel.json and the pages).
   - Free tier is plenty for all of this — no cost.
+
+
+--------------------------------------------------------
+STEP 6 — EMAIL ALERTS FOR NEW SIGN-UPS (EmailJS, free)
+--------------------------------------------------------
+  The website emails Euna whenever someone registers, signs the
+  waiver, requests a class spot, or sends a contact message.
+  (Submissions are always saved on the admin page too.)
+
+  1. Go to https://www.emailjs.com and create a free account.
+  2. Email Services -> Add New Service -> Gmail -> connect the
+     studio Gmail. Copy the SERVICE ID.
+  3. Email Templates -> Create New Template:
+       To Email:  the studio email
+       Subject:   {{title}}
+       Reply To:  {{reply_to}}
+       Content:   {{title}}
+                  Name: {{name}}
+                  Phone: {{phone}}
+                  Email: {{email}}
+                  {{details}}
+     Save, then copy the TEMPLATE ID.
+  4. Account -> General: copy the PUBLIC KEY.
+  5. Put the three values in js/site-config.js where it says
+     PASTE_EMAILJS_... (or send them to Claude to do it).
+  6. Account -> Security: add https://inandoutpilates.com under
+     allowed origins so no one else can use your email quota.
+  7. Phone alerts: install the Gmail app and turn on notifications
+     for the studio inbox. Each new sign-up then pings the phone.

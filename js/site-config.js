@@ -14,7 +14,13 @@ window.SITE_CONFIG = {
   SUPABASE_ANON_KEY: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inhxd3l2cmRxY2l2bGJkbHZyaHN4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODMyNzEyNDQsImV4cCI6MjA5ODg0NzI0NH0.SzOyGtR4W5ULiFUWeS0Fvrv_5oiXnvrfpPaw3H6fd9U",
   // Optional anti-bot protection (Cloudflare Turnstile). Leave as-is to
   // skip it; paste your free "site key" to turn it on. See ADMIN-SETUP.txt.
-  TURNSTILE_SITE_KEY: "PASTE_TURNSTILE_SITE_KEY"
+  TURNSTILE_SITE_KEY: "PASTE_TURNSTILE_SITE_KEY",
+  // Email notifications to Euna (EmailJS). Used by the contact form and
+  // sent whenever someone registers, signs the waiver, or requests a spot.
+  // These three values are designed to be public. Leave as-is to turn off.
+  EMAILJS_PUBLIC_KEY: "PASTE_EMAILJS_PUBLIC_KEY",
+  EMAILJS_SERVICE_ID: "PASTE_EMAILJS_SERVICE_ID",
+  EMAILJS_TEMPLATE_ID: "PASTE_EMAILJS_TEMPLATE_ID"
 };
 
 /* Returns true once the two Supabase values above have been filled in. */
