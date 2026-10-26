@@ -18,9 +18,9 @@ window.SITE_CONFIG = {
   // Email notifications to Euna (EmailJS). Used by the contact form and
   // sent whenever someone registers, signs the waiver, or requests a spot.
   // These three values are designed to be public. Leave as-is to turn off.
-  EMAILJS_PUBLIC_KEY: "PASTE_EMAILJS_PUBLIC_KEY",
-  EMAILJS_SERVICE_ID: "PASTE_EMAILJS_SERVICE_ID",
-  EMAILJS_TEMPLATE_ID: "PASTE_EMAILJS_TEMPLATE_ID"
+  EMAILJS_PUBLIC_KEY: "tjWEvQYIUyRI4wlAr",
+  EMAILJS_SERVICE_ID: "service_arvs03w",
+  EMAILJS_TEMPLATE_ID: "template_h8baycc"
 };
 
 /* Returns true once the two Supabase values above have been filled in. */
