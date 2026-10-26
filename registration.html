@@ -196,11 +196,13 @@
 <script src="js/site-config.js"></script>
 <script src="js/db.js"></script>
 <script src="js/turnstile.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4.4.1/dist/email.min.js" integrity="sha256-BS9pFqIbpb4UA2ZDnoG4StETY8hN+6KgbyCMe0pvbV8=" crossorigin="anonymous"></script>
+<script src="js/notify.js"></script>
 <script>
 (function () {
   var NOT_READY = 'Online forms aren’t connected yet. Please text Euna at (618) 409-4966 to register, or try again soon.';
 
-  function handle(formId, statusId, table, build, okMsg) {
+  function handle(formId, statusId, table, build, okMsg, notice) {
     var form = document.getElementById(formId);
     var status = document.getElementById(statusId);
     if (!form) return;
@@ -224,7 +226,9 @@
       status.textContent = 'Sending…';
       var btn = form.querySelector('button[type="submit"]');
       btn.disabled = true;
-      window.DB.insert(table, build(form)).then(function () {
+      var row = build(form);
+      window.DB.insert(table, row).then(function () {
+        if (window.Notify && notice) window.Notify.quiet(notice(row));
         form.style.display = 'none';
         status.className = 'form-status ok';
         status.textContent = okMsg;
@@ -246,7 +250,15 @@
       goals: f.goals.value.trim(),
       heard_about: f.heard_about.value.trim()
     };
-  }, '✓ Thank you! Your registration has been received.');
+  }, '✓ Thank you! Your registration has been received.', function (r) {
+    return {
+      title: 'New client registration: ' + r.name,
+      name: r.name, phone: r.phone, email: r.email,
+      details: window.Notify.lines([
+        ['Experience', r.experience], ['Goals', r.goals], ['Heard about us', r.heard_about]
+      ])
+    };
+  });
 
   handle('waiverForm', 'waiverStatus', 'waivers', function (f) {
     return {
@@ -257,7 +269,10 @@
       signature: f.signature.value.trim(),
       agreed: f.agree.checked
     };
-  }, '✓ Thank you! Your signed waiver has been received.');
+  }, '✓ Thank you! Your signed waiver has been received.', function (r) {
+    // Keep it short: date of birth and emergency contact stay in the admin page only.
+    return { title: 'Waiver signed: ' + r.name, name: r.name, details: 'Full waiver is on the Studio Admin page (Waivers tab).' };
+  });
 })();
 </script>
 </body>

@@ -155,51 +155,50 @@
      2) Add an Email Service (e.g. Gmail) and copy its SERVICE ID
      3) Create an Email Template and copy its TEMPLATE ID
      4) From Account > General, copy your PUBLIC KEY
-     5) Paste the three values below where it says PASTE_...
+     5) Paste the three values into js/site-config.js where it says PASTE_EMAILJS_...
      6) Set the studio email as the "To" address inside the EmailJS template.
      Until these are filled in, the form shows a friendly fallback message.
      ============================================================ -->
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4.4.1/dist/email.min.js" integrity="sha256-BS9pFqIbpb4UA2ZDnoG4StETY8hN+6KgbyCMe0pvbV8=" crossorigin="anonymous"></script>
+<script src="js/site-config.js"></script>
+<script src="js/notify.js"></script>
 <script>
-  // ---- PASTE YOUR EMAILJS VALUES HERE ----
-  var EMAILJS_PUBLIC_KEY  = "PASTE_PUBLIC_KEY";
-  var EMAILJS_SERVICE_ID  = "PASTE_SERVICE_ID";
-  var EMAILJS_TEMPLATE_ID = "PASTE_TEMPLATE_ID";
-  // ----------------------------------------
-
+  // EmailJS values live in js/site-config.js (shared with the other forms).
   var form = document.getElementById('contactForm');
   var statusEl = document.getElementById('formStatus');
-  var configured = EMAILJS_PUBLIC_KEY.indexOf('PASTE_') === -1;
-
-  if (configured && window.emailjs) { emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY }); }
 
   form.addEventListener('submit', function (e) {
     e.preventDefault();
     statusEl.className = 'form-status';
     statusEl.textContent = '';
 
-    if (!configured) {
+    if (!window.Notify || !window.Notify.enabled()) {
       statusEl.className = 'form-status err';
       statusEl.innerHTML = 'The email form isn’t connected yet. Please text Euna at (618) 409-4966 or email us directly. (Studio: finish EmailJS setup to enable this form.)';
       return;
     }
 
-    statusEl.className = 'form-status';
     statusEl.textContent = 'Sending…';
     var btn = form.querySelector('button[type="submit"]');
     btn.disabled = true;
+    var f = form.elements;
 
-    emailjs.sendForm(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, form)
-      .then(function () {
-        form.reset();
-        statusEl.className = 'form-status ok';
-        statusEl.textContent = 'Thank you! Your message has been sent. We’ll be in touch soon.';
-        btn.disabled = false;
-      }, function (err) {
-        statusEl.className = 'form-status err';
-        statusEl.textContent = 'Sorry, something went wrong. Please text Euna at (618) 409-4966 instead.';
-        btn.disabled = false;
-      });
+    window.Notify.send({
+      title: 'New website message from ' + f['name'].value.trim(),
+      name: f['name'].value.trim(),
+      phone: f['phone'].value.trim(),
+      email: f['email'].value.trim(),
+      details: window.Notify.lines([['Interested in', f['interest'].value], ['Message', f['message'].value.trim()]])
+    }).then(function () {
+      form.reset();
+      statusEl.className = 'form-status ok';
+      statusEl.textContent = 'Thank you! Your message has been sent. We’ll be in touch soon.';
+      btn.disabled = false;
+    }, function () {
+      statusEl.className = 'form-status err';
+      statusEl.textContent = 'Sorry, something went wrong. Please text Euna at (618) 409-4966 instead.';
+      btn.disabled = false;
+    });
   });
 </script>
 </body>

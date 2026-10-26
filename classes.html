@@ -301,6 +301,8 @@
 <script src="js/site-config.js"></script>
 <script src="js/db.js"></script>
 <script src="js/turnstile.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4.4.1/dist/email.min.js" integrity="sha256-BS9pFqIbpb4UA2ZDnoG4StETY8hN+6KgbyCMe0pvbV8=" crossorigin="anonymous"></script>
+<script src="js/notify.js"></script>
 <script src="js/schedule.js"></script>
 <script>
   // Weekly schedule
@@ -392,6 +394,17 @@
         notes: val('su_notes'),
         status: 'new'
       }).then(function () {
+        window.Notify && window.Notify.quiet({
+          title: 'New spot request: ' + classField.value,
+          name: val('su_name'), phone: val('su_phone'), email: val('su_email'),
+          details: window.Notify.lines([
+            ['Class', classField.value],
+            ['Preferred day', document.getElementById('su_day').value],
+            ['Preferred time', val('su_time')],
+            ['Online via Zoom', document.getElementById('su_online').checked ? 'Yes' : ''],
+            ['Notes', val('su_notes')]
+          ])
+        });
         form.style.display = 'none';
         status.className = 'form-status ok';
         status.textContent = '✓ Request sent! Euna will confirm your spot soon.';
