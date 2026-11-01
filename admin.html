@@ -425,7 +425,8 @@
       return '<div class="sub-card" data-id="'+esc(x.id)+'">' +
         '<div class="sub-head"><span class="sub-name">'+esc(x.name)+'</span>' +
         '<span class="sub-when">'+fmt(x.created_at)+'</span></div>' +
-        '<dl>' + r('Email', x.email) + r('Phone', x.phone) +
+        '<dl>' + r('Legal first name', x.first_name) + r('Legal last name', x.last_name) +
+          r('Email', x.email) + r('Phone', x.phone) + r('ZIP code', x.zip) +
           r('Experience', x.experience) + r('Goals', x.goals) + r('Heard via', x.heard_about) + '</dl>' +
         '<div class="sub-actions">' + telBtns(x.phone) +
           '<button class="btn btn--danger btn--sm" data-del="registrations:'+esc(x.id)+'">Delete</button>' +
@@ -489,7 +490,7 @@
   // CSV export
   var COLS = {
     signups: ['created_at','name','phone','email','class_type','preferred_day','preferred_time','online','notes','status'],
-    registrations: ['created_at','name','email','phone','experience','goals','heard_about'],
+    registrations: ['created_at','first_name','last_name','name','email','phone','zip','experience','goals','heard_about'],
     waivers: ['created_at','name','dob','emergency_name','emergency_phone','signature','agreed']
   };
   function toCSV(rows, cols) {

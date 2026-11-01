@@ -60,9 +60,14 @@
           <p>Tell us a little about yourself and your goals so we can prepare for your visit.</p>
           <form id="registrationForm" class="mt-2">
             <div class="hp" aria-hidden="true"><label>Company<input type="text" name="company" tabindex="-1" autocomplete="off"></label></div>
+            <p style="font-size:.92rem;color:var(--slate);margin-bottom:10px">Please use your <strong>legal name exactly as it appears on your insurance card</strong> so we can check your eligibility (for example, SilverSneakers).</p>
             <div class="field">
-              <label for="reg_name">Full name *</label>
-              <input type="text" id="reg_name" name="name" required maxlength="120" placeholder="Jane Doe">
+              <label for="reg_first">Legal first name *</label>
+              <input type="text" id="reg_first" name="first_name" required maxlength="60" autocomplete="given-name" placeholder="Jane">
+            </div>
+            <div class="field">
+              <label for="reg_last">Legal last name *</label>
+              <input type="text" id="reg_last" name="last_name" required maxlength="60" autocomplete="family-name" placeholder="Doe">
             </div>
             <div class="field">
               <label for="reg_email">Email *</label>
@@ -71,6 +76,10 @@
             <div class="field">
               <label for="reg_phone">Phone *</label>
               <input type="tel" id="reg_phone" name="phone" required placeholder="(555) 555-5555">
+            </div>
+            <div class="field">
+              <label for="reg_zip">ZIP code *</label>
+              <input type="text" id="reg_zip" name="zip" required inputmode="numeric" autocomplete="postal-code" pattern="[0-9]{5}(-[0-9]{4})?" maxlength="10" placeholder="62704" title="5-digit ZIP code, e.g. 62704">
             </div>
             <div class="field">
               <label for="reg_experience">Pilates experience</label>
@@ -202,7 +211,7 @@
 (function () {
   var NOT_READY = 'Online forms aren’t connected yet. Please text Euna at (618) 409-4966 to register, or try again soon.';
 
-  function handle(formId, statusId, table, build, okMsg, notice) {
+  function handle(formId, statusId, table, build, okMsg, notice, fallback) {
     var form = document.getElementById(formId);
     var status = document.getElementById(statusId);
     if (!form) return;
@@ -227,7 +236,11 @@
       var btn = form.querySelector('button[type="submit"]');
       btn.disabled = true;
       var row = build(form);
-      window.DB.insert(table, row).then(function () {
+      window.DB.insert(table, row).catch(function (err) {
+        // Until the new database columns exist, save without them (nothing is lost).
+        if (fallback && /column/i.test((err && (err.message || err.code)) || '')) return window.DB.insert(table, fallback(row));
+        throw err;
+      }).then(function () {
         if (window.Notify && notice) window.Notify.quiet(notice(row));
         form.style.display = 'none';
         status.className = 'form-status ok';
@@ -242,8 +255,13 @@
   }
 
   handle('registrationForm', 'regStatus', 'registrations', function (f) {
+    var first = f.elements['first_name'].value.trim();
+    var last = f.elements['last_name'].value.trim();
     return {
-      name: f.elements['name'].value.trim(),
+      first_name: first,
+      last_name: last,
+      zip: f.elements['zip'].value.trim(),
+      name: first + ' ' + last,
       email: f.email.value.trim(),
       phone: f.phone.value.trim(),
       experience: f.experience.value,
@@ -255,9 +273,14 @@
       title: 'New client registration: ' + r.name,
       name: r.name, phone: r.phone, email: r.email,
       details: window.Notify.lines([
+        ['Legal first name', r.first_name], ['Legal last name', r.last_name], ['ZIP code', r.zip],
         ['Experience', r.experience], ['Goals', r.goals], ['Heard about us', r.heard_about]
       ])
     };
+  }, function (r) {
+    // Older database without first_name/last_name/zip: keep the ZIP in the goals note.
+    return { name: r.name, email: r.email, phone: r.phone, experience: r.experience,
+      heard_about: r.heard_about, goals: ('ZIP: ' + r.zip + (r.goals ? '\n' + r.goals : '')) };
   });
 
   handle('waiverForm', 'waiverStatus', 'waivers', function (f) {

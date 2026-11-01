@@ -303,3 +303,19 @@ STEP 6 — EMAIL ALERTS FOR NEW SIGN-UPS (EmailJS, free)
      allowed origins so no one else can use your email quota.
   7. Phone alerts: install the Gmail app and turn on notifications
      for the studio inbox. Each new sign-up then pings the phone.
+
+
+--------------------------------------------------------
+STEP 7 — LEGAL NAME + ZIP ON REGISTRATIONS (for insurance checks)
+--------------------------------------------------------
+  The registration form asks for legal first name, legal last name
+  and ZIP code. To store them in their own columns, run this once
+  in Supabase -> SQL Editor -> New query -> Run:
+
+  alter table public.registrations
+    add column if not exists first_name text,
+    add column if not exists last_name  text,
+    add column if not exists zip        text;
+
+  (Until this is run, the form still works: the full name is saved
+   as before and the ZIP code is added to the top of the goals note.)
